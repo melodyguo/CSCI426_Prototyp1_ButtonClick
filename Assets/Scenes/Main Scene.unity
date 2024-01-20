@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+  healRate: 0.1
   healthBar: {fileID: 1518711665}
   player: {fileID: 1854735904}
 --- !u!136 &755036201
