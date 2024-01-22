@@ -9,22 +9,29 @@
 
 ### tim: (2hr)
 - Button Animations
-- Surprise box
 - Powerups
 
-## Task 2: visual update
+## Task 2: visual update by MONDAY NIGHT
+### melody: (3hr)
+- Particles (button click, damage amt)
+- Prettier progress bar, prettier powerups
+- increase button hp (ROUND SYSTEM)
+
+### tim: (3hr)
+- Button break animation
+- Powerup model + animation
+- Screenshake
+- Spawn powerup when button breaks + button respawn
+
+
+## Task 3: audio update
 ### melody:
-- Button click particles (don't forget the damage value)
 
 ### tim:
-
-
-VFX
-- Clicking Button (button animation, screenshake, particles)
-- UI (powerups, progress bar)
-- Surprise box
 
 Sound
 - BGM
 - Button Clicking SFX
 - Suprise box SFX (opening)
+
+- STRETCH: if at the end of the round, the player is too weak, drop an approriate power up
