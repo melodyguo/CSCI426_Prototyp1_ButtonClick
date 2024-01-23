@@ -35,58 +35,49 @@ public class Button : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-
-        // button died--load next button
-    {   if (healthBar.GetHealth() <= 0)
+    { 
+        // get inputs
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            round++;
-            Debug.Log(round);
-
-            // button level up!
-            if (round%5 == 0)
-            {
-                maxHealth *= 2;
-            }
-
-            healthBar.ResetToMax(maxHealth);
-
-            return;
+            PressButton();
         }
 
         // health bar auto-healing
         healthBar.SetHealth(healthBar.GetHealth() + Time.deltaTime * healRate * maxHealth);
     }
 
-
-
-    private void OnMouseDown()
+    private void PressButton()
     {
-        // for visualization -- remove later
-        renderer.material.color = Color.red;
-
-
-        // play splatter particle effect
+        // particle effects
         if (JellySplatterPrefab != null)
         {
             SpawnJellySplatter();
         }
-
-        // take damage
-        healthBar.SetHealth(healthBar.GetHealth() - player.GetHitPoints());
-
-        healthBarAnimator.SetTrigger("TookDamage");
-
-        if (healthBar.GetHealth() <= 0)
-        {
-            FindObjectOfType<HitStop>().Stop(hitStopDuration);
-            renderer.material.color = Color.blue;
-            Debug.Log("TIME TO RESPAWN");
-        }
-
-        // play damange number effect
         if (FloatingTextPrefab != null)
         {
             SpawnFloatingText();
+        }
+
+        // take damage
+        healthBar.SetHealth(healthBar.GetHealth() - player.GetHitPoints());
+        healthBarAnimator.SetTrigger("TookDamage");
+
+        // button died--time to respawn
+        if (healthBar.GetHealth() <= 0)
+        {
+            FindObjectOfType<HitStop>().Stop(hitStopDuration);
+
+            // increment round
+            round++;
+            Debug.Log(round);
+
+            // button level up!
+            if (round % 5 == 0)
+            {
+                maxHealth *= 2;
+            }
+
+            healthBar.ResetToMax(maxHealth);
         }
     }
 
@@ -99,11 +90,5 @@ public class Button : MonoBehaviour
     private void SpawnJellySplatter()
     {
         Instantiate(JellySplatterPrefab, transform.position, Quaternion.identity, transform);
-    }
-
-    private void OnMouseUp()
-    {
-        // for visualization -- remove later
-        renderer.material.color = Color.white;
     }
 }
