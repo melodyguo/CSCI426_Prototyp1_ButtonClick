@@ -9,6 +9,8 @@ public class ButtonAnimation : MonoBehaviour
     public float moveDistance = 1.0f; // Distance to move buttonCap
     public float shakeDistance = 0.3f;
 
+    public ScreenShake screenShake;
+
     private Vector3 originalPosition;
     private Vector3 buttonOriginalPosition;
     private Vector3 targetPosition;
@@ -32,6 +34,7 @@ public class ButtonAnimation : MonoBehaviour
         // 检测按键
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
+            screenShake.TriggerShake();
             // 对 defaultButton 应用相对移动
             defaultButton.transform.localPosition = new Vector3(defaultButton.transform.localPosition.x, defaultButton.transform.localPosition.y - shakeDistance, defaultButton.transform.localPosition.z);
             if (moveCoroutine != null)
