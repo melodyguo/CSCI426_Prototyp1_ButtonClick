@@ -21,6 +21,10 @@ public class Button : MonoBehaviour
     [SerializeField] GameObject JellySplatterPrefab;
     [SerializeField] float hitStopDuration = 0.5f;
 
+    [Header("SFX")]
+    [SerializeField] AudioSource pressSound;
+    [SerializeField] AudioSource breakSound;
+
     private float round = 1;
     private Renderer renderer;
 
@@ -58,6 +62,9 @@ public class Button : MonoBehaviour
             SpawnFloatingText();
         }
 
+        // sound effects
+        pressSound.Play();
+
         // take damage
         healthBar.SetHealth(healthBar.GetHealth() - player.GetHitPoints());
         healthBarAnimator.SetTrigger("TookDamage");
@@ -65,6 +72,8 @@ public class Button : MonoBehaviour
         // button died--time to respawn
         if (healthBar.GetHealth() <= 0)
         {
+            // hit stop
+            breakSound.Play();
             FindObjectOfType<HitStop>().Stop(hitStopDuration);
 
             // increment round

@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     private float multiply = 1;
 
     [Header("Powerup UI")]
+    [SerializeField] GameObject addPowerupGO;
+    [SerializeField] GameObject powerPowerupGO;
+    [SerializeField] GameObject multiplyPowerupGO;
     [SerializeField] TMP_Text addPowerup;
     [SerializeField] TMP_Text powerPowerup;
     [SerializeField] TMP_Text multiplyPowerup;
@@ -20,11 +23,16 @@ public class Player : MonoBehaviour
     [SerializeField] Animator powerAnimator;
     [SerializeField] Animator multiplyAnimator;
 
+    [Header("Sound")]
+    [SerializeField] AudioSource powerupSound;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        addPowerupGO.SetActive(false);
+        powerPowerupGO.SetActive(false);
+        multiplyPowerupGO.SetActive(false);
     }
 
     // Update is called once per frame
@@ -51,22 +59,34 @@ public class Player : MonoBehaviour
 
     public void ApplyAddPowerup(float num)
     {
+        if (!addPowerupGO.activeSelf)
+            addPowerupGO.SetActive(true);
+
         add += num;
         addPowerup.text = "+" + add.ToString();
         addAnimator.SetTrigger("PowerupObtained");
+        powerupSound.Play();
     }
 
     public void ApplyPowerPowerup(float num)
     {
+        if (!powerPowerupGO.activeSelf)
+            powerPowerupGO.SetActive(true);
+
         power += num;
         powerPowerup.text = "^" + power.ToString();
         powerAnimator.SetTrigger("PowerupObtained");
+        powerupSound.Play();
     }
 
     public void ApplyMultiplyPowerup(float num)
     {
+        if (!multiplyPowerupGO.activeSelf)
+            multiplyPowerupGO.SetActive(true);
+
         multiply += num;
         multiplyPowerup.text = "x" + multiply.ToString();
         multiplyAnimator.SetTrigger("PowerupObtained");
+        powerupSound.Play();
     }
 }
