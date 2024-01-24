@@ -7,12 +7,12 @@ using TMPro;
 public class Button : MonoBehaviour
 {
 
-    [SerializeField] float maxHealth = 5;
+    [SerializeField] public float maxHealth = 5;
     [SerializeField] float healRate = 0.10f;
     [SerializeField] Player player;
 
     [Header("HealthBar")]
-    [SerializeField] HealthBar healthBar;
+    [SerializeField] public HealthBar healthBar;
     [SerializeField] Animator healthBarAnimator;
     [SerializeField] string healthBarPulseAnim;
 
@@ -87,6 +87,7 @@ public class Button : MonoBehaviour
             }
 
             healthBar.ResetToMax(maxHealth);
+
         }
     }
 

@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] Gradient gradient;
     [SerializeField] Image fill;
     [SerializeField] Image background;
+    public ShaderModifier shaderModifier;
 
     public void SetHealth(float health)
     {
@@ -29,5 +30,6 @@ public class HealthBar : MonoBehaviour
         slider.value = maxHealth;
         fill.color = gradient.Evaluate(1);
         background.color = new Color(fill.color.r, fill.color.g, fill.color.b, 0.0f);
+        shaderModifier.explodeAnimation();
     }
 }

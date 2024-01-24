@@ -69,4 +69,22 @@ public class ButtonAnimation : MonoBehaviour
 
         objectToMove.transform.localPosition = end;
     }
+
+    public GameObject[] prefabs; // 存放预制体的数组
+    private int buttonCount = 0; // 按钮计数器
+
+    // 调用这个方法以增加计数并生成预制体
+    public void IncrementAndSpawn()
+    {
+        buttonCount++; // 增加按钮计数
+
+        if (prefabs.Length > 0)
+        {
+            // 从预制体数组中随机选择一个
+            GameObject prefabToSpawn = prefabs[Random.Range(0, prefabs.Length)];
+            // 在当前游戏对象的位置生成预制体
+            Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+        }
+    }
+
 }
