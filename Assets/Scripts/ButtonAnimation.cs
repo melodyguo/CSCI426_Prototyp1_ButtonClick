@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class ButtonAnimation : MonoBehaviour
 
     void Start()
     {
-        // Ê¹ÓÃ localPosition »ñÈ¡Ïà¶ÔÓÚ¸¸¶ÔÏóµÄ³õÊ¼Î»ÖÃ
+        // Ê¹ï¿½ï¿½ localPosition ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½Ê¼Î»ï¿½ï¿½
         originalPosition = buttonCap.transform.localPosition;
         buttonOriginalPosition = defaultButton.transform.localPosition;
     }
@@ -27,21 +28,21 @@ public class ButtonAnimation : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            // ÖØÖÃ defaultButton µÄÎ»ÖÃµ½Æä³õÊ¼Ïà¶ÔÎ»ÖÃ
+            // ï¿½ï¿½ï¿½ï¿½ defaultButton ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Î»ï¿½ï¿½
             defaultButton.transform.localPosition = buttonOriginalPosition;
         }
         targetPosition = originalPosition - Vector3.up * moveDistance;
-        // ¼ì²â°´¼ü
+        // ï¿½ï¿½â°´ï¿½ï¿½
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             screenShake.TriggerShake();
-            // ¶Ô defaultButton Ó¦ÓÃÏà¶ÔÒÆ¶¯
+            // ï¿½ï¿½ defaultButton Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
             defaultButton.transform.localPosition = new Vector3(defaultButton.transform.localPosition.x, defaultButton.transform.localPosition.y - shakeDistance, defaultButton.transform.localPosition.z);
             if (moveCoroutine != null)
             {
                 StopCoroutine(moveCoroutine);
             }
-            // Ê¹ÓÃ localPosition ×÷ÎªÒÆ¶¯Ä¿±ê
+            // Ê¹ï¿½ï¿½ localPosition ï¿½ï¿½Îªï¿½Æ¶ï¿½Ä¿ï¿½ï¿½
             moveCoroutine = StartCoroutine(MoveOverSeconds(buttonCap, targetPosition, 0.03f));
         }
         else if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
@@ -50,7 +51,7 @@ public class ButtonAnimation : MonoBehaviour
             {
                 StopCoroutine(moveCoroutine);
             }
-            // Ê¹ÓÃ localPosition ·µ»Øµ½Ô­Ê¼Î»ÖÃ
+            // Ê¹ï¿½ï¿½ localPosition ï¿½ï¿½ï¿½Øµï¿½Ô­Ê¼Î»ï¿½ï¿½
             moveCoroutine = StartCoroutine(MoveOverSeconds(buttonCap, originalPosition, 0.1f));
         }
     }
@@ -68,5 +69,22 @@ public class ButtonAnimation : MonoBehaviour
         }
 
         objectToMove.transform.localPosition = end;
+    }
+
+    public GameObject[] prefabs; // å­˜æ”¾é¢„åˆ¶ä½“çš„æ•°ç»„
+    private int buttonCount = 0; // æŒ‰é’®è®¡æ•°å™¨
+
+    // è°ƒç”¨è¿™ä¸ªæ–¹æ³•ä»¥å¢åŠ è®¡æ•°å¹¶ç”Ÿæˆé¢„åˆ¶ä½“
+    public void IncrementAndSpawn()
+    {
+        buttonCount++; // å¢åŠ æŒ‰é’®è®¡æ•°
+
+        if (prefabs.Length > 0)
+        {
+            // ä»é¢„åˆ¶ä½“æ•°ç»„ä¸­éšæœºé€‰æ‹©ä¸€ä¸ª
+            GameObject prefabToSpawn = prefabs[Random.Range(0, prefabs.Length)];
+            // åœ¨å½“å‰æ¸¸æˆå¯¹è±¡çš„ä½ç½®ç”Ÿæˆé¢„åˆ¶ä½“
+            Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+        }
     }
 }
